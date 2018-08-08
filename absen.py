@@ -4,6 +4,7 @@ from sys import exit
 import time
 import math
 import os
+import random
 
 try:
 	from subprocess import call
@@ -15,16 +16,21 @@ except ImportError:
 	# print "Install module dulu, buka requirement.txt"
 	os.system("bash req.sh")
 
-#  Create csv and header
-# file = open("Oprec.csv", "w")
-# file.write("No,Nama,NIM\n")
-# file.close()
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
 
-# x = open("Oprec.csv")
-# x.readline()
-# baca = csv.reader(x)
-
-# isi = []
+print color.BOLD + color.UNDERLINE + color.GREEN + "\t\tAbsensi Open Requirement FOSTI UMS" + color.END
+print color.RED + "\t\t\tCopyright : FOSTI UMS" + color.END
+print "\n"
 
 data = open("Oprec.csv", "a")
 
@@ -48,6 +54,10 @@ proc.process_one()
 proc.visible = False
 # extract results
 nomer = 0
+# Font coloring
+
+fontcolor = [color.PURPLE,color.CYAN,color.DARKCYAN,color.BLUE, color.GREEN, color.YELLOW, color.RED]
+
 for symbol in proc.results:
     # do something useful with results
     # print 'decoded', symbol.type, 'symbol', '"%s"' % symbol.data
@@ -64,4 +74,6 @@ for symbol in proc.results:
 	data.write ("\n")
 	data.close()
 
-	print "Selamat datang "+nama
+	# print "Selamat datang "+nama
+	print color.BOLD + random.choice(fontcolor)+"Selamat datang "+nama
+	print
