@@ -5,6 +5,8 @@ import time
 import math
 import os
 import random
+import hashlib
+import base64
 
 try:
 	from subprocess import call
@@ -64,11 +66,16 @@ nomer = 0
 
 fontcolor = [color.PURPLE,color.CYAN,color.DARKCYAN,color.BLUE, color.GREEN, color.YELLOW]
 
+vld = hashlib.md5()
+vld.update("Fosti_Oprec")
+valid = vld.hexdigest()
+
 for symbol in proc.results:
     # do something useful with results
     # print 'decoded', symbol.type, 'symbol', '"%s"' % symbol.data
 	# nomer+=1
-	qrsp = symbol.data.split('/')
+	strdecode = base64.b64decode(symbol.data)
+	qrsp = strdecode.split('/')
 	if len(qrsp) != 4:
 		print color.BOLD + color.RED + "Invalid QR length ............................[Error]" + color.END
 		break
@@ -79,7 +86,7 @@ for symbol in proc.results:
 	waktu = time.strftime('Pukul %H.%M.%S WIB')
 	# data.write (str(nomer))
 	# data.write (",")
-	if valid != "Fosti_Oprec":
+	if valid != qrsp[0]:
 		print color.BOLD + color.RED + "Invalid QR ............................[Error]"
 		break
 	data.write (nama)
