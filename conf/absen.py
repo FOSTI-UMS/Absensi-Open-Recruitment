@@ -14,7 +14,6 @@ try:
 	import csv
 	import shutil
 except ImportError:
-	# print "Install module dulu, buka requirement.txt"
 	os.system("bash req.sh")
 	try:
 		from subprocess import call
@@ -35,10 +34,6 @@ class color:
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
-
-# print color.BOLD + color.UNDERLINE + color.GREEN + "\t\tAbsensi Open Requirement FOSTI UMS" + color.END
-# print color.RED + "\t\t\tCopyright : FOSTI UMS" + color.END
-# print "\n"
 
 data = open("Oprec.csv", "a")
 
@@ -73,7 +68,6 @@ valid = vld.hexdigest()
 for symbol in proc.results:
     # do something useful with results
     # print 'decoded', symbol.type, 'symbol', '"%s"' % symbol.data
-	# nomer+=1
 	strdecode = base64.b64decode(symbol.data)
 	qrsp = strdecode.split('/')
 	if len(qrsp) != 4:
@@ -84,8 +78,7 @@ for symbol in proc.results:
 	unique_id = qrsp[3]
 	valid = qrsp[0]
 	waktu = time.strftime('Pukul %H.%M.%S WIB')
-	# data.write (str(nomer))
-	# data.write (",")
+	
 	if valid != qrsp[0]:
 		print color.BOLD + color.RED + "Invalid QR ............................[Error]"
 		break
@@ -100,6 +93,5 @@ for symbol in proc.results:
 	data.write ("\n")
 	data.close()
 
-	# print "Selamat datang "+nama
 	print color.BOLD + random.choice(fontcolor)+"Selamat datang "+ nama + "..........................[OK]"
 	print
