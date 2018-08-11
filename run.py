@@ -9,7 +9,7 @@ try:
 	import zbar
 	import csv
 	import shutil
-	import pwn
+	# import pwn
 except ImportError:
 	# print "Install module dulu, buka requirement.txt\n"
 	os.system("bash conf/req.sh")
@@ -20,7 +20,7 @@ except ImportError:
 		import zbar
 		import csv
 		import shutil
-		import pwn
+		# import pwn
 	except ImportError:
 		exit()
 
