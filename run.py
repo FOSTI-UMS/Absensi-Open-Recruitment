@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import time
 import math
+from sys import argv
 import os
 try:
 	import Tkinter
@@ -32,7 +33,13 @@ class color:
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
-   
+ 
+if (len(argv) == 1):
+   	print color.BOLD+color.GREEN+"How to use it: python run.py argument\n(e.g. python run.py /dev/video1)"
+	print color.BOLD+color.RED+"Use Tab"
+	exit()
+
+
 print color.BOLD + color.UNDERLINE + color.GREEN + "\n\t\tAbsensi Open Requirement FOSTI UMS" + color.END
 print color.RED + "\t\t\tCopyright : FOSTI UMS" + color.END
 print "\n"
@@ -52,7 +59,8 @@ file.close()
 root.title("Absensi Oprec")
 
 def absenCallBack():
-   os.system("python conf/absen.py")
+   os.system("python conf/absen.py "+argv[1])
+	
 
 B = Tkinter.Button(root, text ="Absen", command = absenCallBack, height = 10, width = 30)
 def on_closing():

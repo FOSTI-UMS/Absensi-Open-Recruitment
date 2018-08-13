@@ -44,7 +44,6 @@ proc.parse_config('enable')
 # initialize the Processor
 device = '/dev/video0'
 if len(argv) == 1:
-	# print "Asking a argument"
 	exit
 else:
    device = argv[1]
