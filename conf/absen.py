@@ -67,7 +67,12 @@ valid = vld.hexdigest()
 for symbol in proc.results:
     # do something useful with results
     # print 'decoded', symbol.type, 'symbol', '"%s"' % symbol.data
-	strdecode = base64.b64decode(symbol.data)
+    try:
+    	strdecode = base64.b64decode(symbol.data)
+    except TypeError:
+    	print color.BOLD + color.RED + "Invalid QR ............................[Error]"+color.END
+    	exit()
+
 	qrsp = strdecode.split('/')
 	if len(qrsp) != 4:
 		print color.BOLD + color.RED + "Invalid QR length ............................[Error]" + color.END
