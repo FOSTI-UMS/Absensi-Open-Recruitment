@@ -67,35 +67,35 @@ valid = vld.hexdigest()
 for symbol in proc.results:
     # do something useful with results
     # print 'decoded', symbol.type, 'symbol', '"%s"' % symbol.data
-    try:
-    	strdecode = base64.b64decode(symbol.data)
-    except TypeError:
-    	print color.BOLD + color.RED + "Invalid QR ............................[Error]"+color.END
-    	exit()
+	try:
+		# base64.b64decode(symbol.data)
+		strdecode = base64.b64decode(symbol.data)
+		qrsp = strdecode.split('/')
+		if len(qrsp) != 4:
+			print color.BOLD + color.RED + "Invalid QR length ............................[Error]" + color.END
+			break
+		nama = qrsp[2]
+		nim = qrsp[1]
+		unique_id = qrsp[3]
+		valid = qrsp[0]
+		waktu = time.strftime('Pukul %H.%M.%S WIB')
+		
+		if valid != qrsp[0]:
+			print color.BOLD + color.RED + "Invalid QR ............................[Error]"
+			break
+		data.write (nama)
+		data.write (",")
+		data.write (nim)
+		data.write (",")
+		data.write (unique_id)
+		data.write (",")
+		data.write (waktu)
+		data.write (",")
+		data.write ("\n")
+		data.close()
 
-	qrsp = strdecode.split('/')
-	if len(qrsp) != 4:
-		print color.BOLD + color.RED + "Invalid QR length ............................[Error]" + color.END
-		break
-	nama = qrsp[2]
-	nim = qrsp[1]
-	unique_id = qrsp[3]
-	valid = qrsp[0]
-	waktu = time.strftime('Pukul %H.%M.%S WIB')
-	
-	if valid != qrsp[0]:
-		print color.BOLD + color.RED + "Invalid QR ............................[Error]"
-		break
-	data.write (nama)
-	data.write (",")
-	data.write (nim)
-	data.write (",")
-	data.write (unique_id)
-	data.write (",")
-	data.write (waktu)
-	data.write (",")
-	data.write ("\n")
-	data.close()
-
-	print color.BOLD + random.choice(fontcolor)+"Selamat datang "+ nama + "..........................[OK]"
-	print
+		print color.BOLD + random.choice(fontcolor)+"Selamat datang "+ nama + "..........................[OK]"
+		print
+	except TypeError:
+		print color.BOLD + color.RED + "Invalid QR ............................[Error]"+color.END
+		exit()

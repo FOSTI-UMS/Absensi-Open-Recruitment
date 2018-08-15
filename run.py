@@ -33,11 +33,33 @@ class color:
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
- 
-if (len(argv) == 1):
-   	print color.BOLD+color.GREEN+"How to use it: python run.py argument\n(e.g. python run.py /dev/video1)"
-	print color.BOLD+color.RED+"Use Tab"
-	exit()
+
+os.system("clear")
+def cekvid():
+   import subprocess
+   viddev = subprocess.check_output('ls /dev | grep video', shell=True)
+   viddev = viddev.split('\n')
+   print color.BOLD + color.YELLOW + "Perangkat tersedia, "+str(len(viddev)-1)+":\n" + color.END
+   nomer = 0
+   for i in viddev:
+      print color.BOLD + color.UNDERLINE + color.CYAN + i + color.END
+   a = raw_input(color.BOLD + color.BLUE + "Pilih perangkat(e.g. video1. quit/exit to close): " + color.END)
+   keluar = ["quit", "QUIT", "q", "Q", "Quit", "Exit", "exit", "EXIT"]
+   if a in keluar:
+   	print color.BOLD + color.GREEN + "Good Bye!!" + color.END
+   	exit()
+   if a in viddev:
+      return a
+   else:
+      print color.BOLD + color.RED + "Perangkat ga ada NGACO!!" + color.END+"\n\n"
+      cekvid()
+
+prg = cekvid()
+os.system("clear")
+# if (len(argv) == 1):
+#    	print color.BOLD+color.GREEN+"How to use it: python run.py argument\n(e.g. python run.py /dev/video1)"
+# 	print color.BOLD+color.RED+"Use Tab"
+# 	exit()
 
 
 print color.BOLD + color.UNDERLINE + color.GREEN + "\n\t\tAbsensi Open Requirement FOSTI UMS" + color.END
@@ -59,7 +81,7 @@ file.close()
 root.title("Absensi Oprec")
 
 def absenCallBack():
-   os.system("python conf/absen.py "+argv[1])
+   os.system("python conf/absen.py /dev/"+prg)
 	
 
 B = Tkinter.Button(root, text ="Absen", command = absenCallBack, height = 10, width = 30)
