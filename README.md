@@ -19,6 +19,5 @@ From the command line, switch to the directory where absensi cloned:
 
 ```sh
 cd Absensi-Open-Recuirement
-python run.py {{ arg }}
-e.g.(python run.py /dev/video1)
+python run.py
 ```
