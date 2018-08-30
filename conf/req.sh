@@ -16,9 +16,9 @@ echo -e $red "SABAR!!!"
 echo -e $white
 sleep 2
 if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
-	sudo apt-get zbar-tools
-	sudo apt-get install python-zbar
-	sudo apt-get install python-tk
+	sudo apt-get zbar-tools -y
+	sudo apt-get install python-zbar -y
+	sudo apt-get install python-tk -y
   echo -e $grn "Proses instalasi selesai!"
   echo -e $white
 else
