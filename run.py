@@ -62,7 +62,7 @@ os.system("clear")
 # 	exit()
 
 
-print color.BOLD + color.UNDERLINE + color.GREEN + "\n\t\tAbsensi Open Requirement FOSTI UMS" + color.END
+print color.BOLD + color.UNDERLINE + color.GREEN + "\n\t\tAbsensi Open Recruitment FOSTI UMS" + color.END
 print color.RED + "\t\t\tCopyright : FOSTI UMS" + color.END
 print "\n"
 
@@ -88,8 +88,8 @@ B = Tkinter.Button(root, text ="Absen", command = absenCallBack, height = 10, wi
 def on_closing():
     if tkMessageBox.askokcancel("Selesai", "Sudah selesai?"):
 		x=str( time.strftime('%A. %d %B %Y - Pukul %H.%M WIB'))
-		os.makedirs( r'ABSEN OPEN RECUIREMENT - %s'%x)
-		shutil.move('Oprec.csv', 'ABSEN OPEN RECUIREMENT - %s'%x)
+		os.makedirs( r'ABSEN OPEN RECRUITMENT - %s'%x)
+		shutil.move('Oprec.csv', 'ABSEN OPEN RECRUITMENT - %s'%x)
 		print color.BOLD + color.GREEN + "\t\t\tTerima kasih!!"
 		root.destroy()
 
