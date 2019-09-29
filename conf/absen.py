@@ -72,7 +72,7 @@ for symbol in proc.results:
 		strdecode = base64.b64decode(symbol.data)
 		qrsp = strdecode.split('/')
 		if len(qrsp) != 4:
-			print(color.BOLD + color.RED + "Invalid QR length [Error]" + color.END)
+			print(color.BOLD + color.RED + "Invalid QR length ...[Error]" + color.END)
 			break
 		nama = qrsp[2]
 		nim = qrsp[1]
@@ -81,7 +81,7 @@ for symbol in proc.results:
 		waktu = time.strftime('Pukul %H.%M.%S WIB')
 		
 		if valid != qrsp[0]:
-			print(color.BOLD + color.RED + "Invalid QR [Error]")
+			print(color.BOLD + color.RED + "Invalid QR ...[Error]")
 			break
 		data.write (nama)
 		data.write (",")
@@ -94,8 +94,8 @@ for symbol in proc.results:
 		data.write ("\n")
 		data.close()
 
-		print(color.BOLD + random.choice(fontcolor)+"Selamat datang "+ nama + "[SUCCESS]")
+		print(color.BOLD + random.choice(fontcolor)+"Welcome "+ nama + " ...[SUCCESS]")
 		print()
 	except TypeError:
-		print(color.BOLD + color.RED + "Invalid QR [Error]"+color.END)
+		print(color.BOLD + color.RED + "Invalid QR ...[Error]"+color.END)
 		exit()
