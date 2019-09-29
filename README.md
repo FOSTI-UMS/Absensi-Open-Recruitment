@@ -19,5 +19,5 @@ From the command line, switch to the directory where absensi cloned:
 
 ```sh
 cd Absensi-Open-Recruitment
-python run.py
+python2 run.py
 ```
