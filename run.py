@@ -1,3 +1,4 @@
+#Zbar is not supported now using zbar-py
 import time
 import math
 from sys import argv
@@ -82,7 +83,7 @@ file.close()
 root.title("Absensi Oprec")
 
 def absenCallBack():
-   os.system("python3 conf/absen.py /dev/"+prg)
+   os.system("python3 conf/absensi.py /dev/"+prg)
 	
 
 B = tkinter.Button(root, text ="Absen", command = absenCallBack, height = 10, width = 30)
