@@ -1,26 +1,31 @@
-#Zbar is not supported now using zbar-py
-import time
-import math
-from sys import argv
-import os
-# try:
-import tkinter
-from tkinter import messagebox
-from subprocess import call
-import zbar
-import csv
-import shutil
-# except ImportError:
-	#os.system("bash conf/req.sh")
-	#try:
-      # import Tkinter
-		# import tkMessageBox
-		# from subprocess import call
-		# import zbar
-		# import csv
-		# import shutil
-	# except ImportError:
-	# 	exit()
+try:
+   import time
+   import math
+   from sys import argv
+   import os
+   import tkinter
+   from tkinter import messagebox
+   from subprocess import call
+   import zbar
+   import csv
+   import shutil
+   import base64
+except:
+   os.system("bash conf/req.sh")
+   try:
+      import time
+      import math
+      from sys import argv
+      import os
+      import tkinter
+      from tkinter import messagebox
+      from subprocess import call
+      import zbar
+      import csv
+      import shutil
+      import base64
+   except:
+      exit()
 
 class color:
    PURPLE = '\033[95m'
@@ -38,7 +43,7 @@ os.system("clear")
 def cekvid():
    import subprocess
    #viddev = subprocess.check_output('ls /dev | grep video', shell=True)
-   viddev = "video0\nvideo1\n"
+   viddev = "video0\nvideo1\n"+"ipcam\n"
    print(viddev)
    viddev = viddev.split('\n')
    print(color.BOLD + color.YELLOW + "Perangkat tersedia, "+str(len(viddev)-1)+":\n" + color.END)
@@ -51,9 +56,13 @@ def cekvid():
    	print(color.BOLD + color.GREEN + "Good Bye!!" + color.END)
    	exit()
    if a in viddev:
-      return a
+      if a == "ipcam":
+         ipcamera = input(color.BOLD + color.BLUE + "Masukan Url Camera (Contoh : http://192.168.1.9:4747/video): " + color.END)
+         return ipcamera   
+      else:   
+         return "/dev/"+a
    else:
-      print(color.BOLD + color.RED + "Perangkat ga ada NGACO!!" + color.END+"\n\n")
+      print(color.BOLD + color.RED + "Perangkat tidak ditemukan!!" + color.END+"\n\n")
       cekvid()
 
 prg = cekvid()
@@ -83,7 +92,7 @@ file.close()
 root.title("Absensi Oprec")
 
 def absenCallBack():
-   os.system("python3 conf/absensi.py /dev/"+prg)
+   os.system("python3 conf/absen.py "+prg)
 	
 
 B = tkinter.Button(root, text ="Absen", command = absenCallBack, height = 10, width = 30)
