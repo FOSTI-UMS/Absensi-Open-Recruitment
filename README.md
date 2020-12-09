@@ -3,7 +3,7 @@ Sistem absensi untuk open recruitment Fosti UMS
 
 ### Recommended using Python 3
 
-- IP camera Support
+- IP camera Support (You can use Droid cam or similiar)
 
 ### Install with git
 
