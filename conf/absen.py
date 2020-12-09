@@ -1,4 +1,3 @@
-#!/usr/bin/python2
 from sys import argv
 from sys import exit
 import time
@@ -8,20 +7,20 @@ import random
 import hashlib
 import base64
 
-try:
-	from subprocess import call
-	import zbar
-	import csv
-	import shutil
-except ImportError:
-	os.system("bash req.sh")
-	try:
-		from subprocess import call
-		import zbar
-		import csv
-		import shutil
-	except ImportError:
-		exit()
+#try:
+from subprocess import call
+import zbar
+import csv
+import shutil
+#except ImportError:
+	# os.system("bash req.sh")
+	# try:
+	# 	from subprocess import call
+	# 	import zbar
+	# 	import csv
+	# 	import shutil
+	# except ImportError:
+	# 	exit()
 
 class color:
    PURPLE = '\033[95m'
