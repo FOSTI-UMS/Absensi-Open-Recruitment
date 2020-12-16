@@ -1,26 +1,31 @@
-#!/usr/bin/python2
-import time
-import math
-from sys import argv
-import os
 try:
-	import Tkinter
-	import tkMessageBox
-	from subprocess import call
-	import zbar
-	import csv
-	import shutil
-except ImportError:
-	os.system("bash conf/req.sh")
-	try:
-		import Tkinter
-		import tkMessageBox
-		from subprocess import call
-		import zbar
-		import csv
-		import shutil
-	except ImportError:
-		exit()
+   import time
+   import math
+   from sys import argv
+   import os
+   import tkinter
+   from tkinter import messagebox
+   from subprocess import call
+   import zbar
+   import csv
+   import shutil
+   import base64
+except:
+   os.system("bash conf/req.sh")
+   try:
+      import time
+      import math
+      from sys import argv
+      import os
+      import tkinter
+      from tkinter import messagebox
+      from subprocess import call
+      import zbar
+      import csv
+      import shutil
+      import base64
+   except:
+      exit()
 
 class color:
    PURPLE = '\033[95m'
@@ -37,21 +42,27 @@ class color:
 os.system("clear")
 def cekvid():
    import subprocess
-   viddev = subprocess.check_output('ls /dev | grep video', shell=True)
+   #viddev = subprocess.check_output('ls /dev | grep video', shell=True)
+   viddev = "video0\nvideo1\n"+"ipcam\n"
+   print(viddev)
    viddev = viddev.split('\n')
-   print color.BOLD + color.YELLOW + "Perangkat tersedia, "+str(len(viddev)-1)+":\n" + color.END
+   print(color.BOLD + color.YELLOW + "Perangkat tersedia, "+str(len(viddev)-1)+":\n" + color.END)
    nomer = 0
    for i in viddev:
       print(color.BOLD + color.UNDERLINE + color.CYAN + i + color.END)
-   a = raw_input(color.BOLD + color.BLUE + "Pilih perangkat(e.g. video1. quit/exit to close): " + color.END)
+   a = input(color.BOLD + color.BLUE + "Pilih perangkat(e.g. video1. quit/exit to close): " + color.END)
    keluar = ["quit", "QUIT", "q", "Q", "Quit", "Exit", "exit", "EXIT"]
    if a in keluar:
    	print(color.BOLD + color.GREEN + "Good Bye!!" + color.END)
    	exit()
    if a in viddev:
-      return a
+      if a == "ipcam":
+         ipcamera = input(color.BOLD + color.BLUE + "Masukan Url Camera (Contoh : http://192.168.1.9:4747/video): " + color.END)
+         return ipcamera   
+      else:   
+         return "/dev/"+a
    else:
-      print(color.BOLD + color.RED + "Perangkat ga ada NGACO!!" + color.END+"\n\n")
+      print(color.BOLD + color.RED + "Perangkat tidak ditemukan!!" + color.END+"\n\n")
       cekvid()
 
 prg = cekvid()
@@ -66,7 +77,7 @@ print(color.BOLD + color.UNDERLINE + color.GREEN + "\n\t\tAbsensi Open Recruitme
 print(color.RED + "\t\t\tCopyright : FOSTI UMS" + color.END)
 print("\n")
 
-root = Tkinter.Tk()
+root = tkinter.Tk()
 
 file = open("Oprec.csv", "w")
 file.write("Nama,NIM,ID,Waktu\n")
@@ -81,17 +92,17 @@ file.close()
 root.title("Absensi Oprec")
 
 def absenCallBack():
-   os.system("python2 conf/absen.py /dev/"+prg)
+   os.system("python3 conf/absen.py "+prg)
 	
 
-B = Tkinter.Button(root, text ="Absen", command = absenCallBack, height = 10, width = 30)
+B = tkinter.Button(root, text ="Absen", command = absenCallBack, height = 10, width = 30)
 def on_closing():
-    if tkMessageBox.askokcancel("Selesai", "Sudah selesai?"):
-		x=str( time.strftime('%A. %d %B %Y - Pukul %H.%M WIB'))
-		os.makedirs( r'ABSEN OPEN RECRUITMENT - %s'%x)
-		shutil.move('Oprec.csv', 'ABSEN OPEN RECRUITMENT - %s'%x)
-		print(color.BOLD + color.GREEN + "\t\t\tTerima kasih!!")
-		root.destroy()
+   if messagebox.askokcancel("Selesai", "Sudah selesai?"):
+      x=str( time.strftime('%A. %d %B %Y - Pukul %H.%M WIB'))
+      os.makedirs( r'ABSEN OPEN RECRUITMENT - %s'%x)
+      shutil.move('Oprec.csv', 'ABSEN OPEN RECRUITMENT - %s'%x)
+      print(color.BOLD + color.GREEN + "\t\t\tTerima kasih!!")
+      root.destroy()
 
 root.protocol("WM_DELETE_WINDOW", on_closing)
 B.pack()
