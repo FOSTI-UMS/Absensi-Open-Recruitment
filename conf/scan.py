@@ -1,20 +1,7 @@
-try:
-	import cv2
-	import zbar
-	import time
-	import base64
-	from conf.text import TextColor
-except:
-	import os
-	os.system("bash conf/install.sh")
-	try:
-		import cv2
-		import zbar
-		import time
-		import base64
-		from conf.text import TextColor
-	except:
-		exit()
+import cv2
+import time
+import base64
+from conf.text import TextColor
 
 FILENAME = "presence.csv"
 
@@ -36,9 +23,9 @@ def init_scanner(capture):
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 	image = gray
 
-	scanner = zbar.Scanner()
-	results = scanner.scan(image)
-	return frame, results
+	scanner = cv2.QRCodeDetector()
+	value, points, straight_qrcode = scanner.detectAndDecode(image)
+	return frame, value
 
 def extract_qrdata(data):
 	"""Extract QR Code Data from zbar scanner"""
@@ -107,15 +94,15 @@ def scanner_loop(url):
 		info_displayed = False
 		
 		while(True):
-			frame, results = init_scanner(cap)
+			frame, value = init_scanner(cap)
 			if not info_displayed:
 				print(f"{TextColor.GREEN}[SCANNER] Connection success!{TextColor.END}")
 				print(f"{TextColor.BOLD}[SCANNER] Press 'q' on window frame to exit!{TextColor.END}")
 				info_displayed = True
 
-			for result in results:
+			if value:
 				try:
-					student_id, name, email, date, time = extract_qrdata(result.data)
+					student_id, name, email, date, time = extract_qrdata(value)
 
 					if not already_presence(student_id):
 						append_presence(student_id, name, email, date, time)
@@ -123,8 +110,7 @@ def scanner_loop(url):
 						print_logging(TextColor.GREEN, f"[SCANNER] Presence success! {student_id} {name}")
 					else:
 						frame_put_text(frame, "Already presence !")
-						print_logging(TextColor.BLUE, f"[SCANNER] Already presence! {student_id} {name}")
-						
+						print_logging(TextColor.BLUE, f"[SCANNER] Already presence! {student_id} {name}")			
 				except Exception as e:
 					frame_put_text(frame, "Invalid !")
 					print(f"{TextColor.RED}[ERROR] {e}{TextColor.END}")
@@ -138,5 +124,3 @@ def scanner_loop(url):
 		cv2.destroyAllWindows()
 	except Exception as e:
 		raise ScannerConnectionError()
-
-	
