@@ -1,31 +1,24 @@
-# Absensi Open Recruitment
-Sistem absensi untuk open recruitment Fosti UMS
+# QR Scanner Open Recruitment Presence
+QR Code Scanner for Fosti UMS Open Recruitment Presence
 
-### Recommended using Python 3
+### Recommendation
 
 - IP camera Support (You can use Droid cam or similiar)
 
-### Install with git
-
-From the command line, switch to the directory where absensi will reside and run
-the following commands:
+### Installation
+Use pip to install all the requirements
 
 ```sh
-git clone https://github.com/fosti/Absensi-Open-Recruitment.git
-cd Absensi-Open-Recruitment
+pip3 install -r requirements.txt
 ```
-
 
 ### How to use it
-
-From the command line, switch to the directory where absensi cloned:
+Run the presence.py from command line:
 
 ```sh
-cd Absensi-Open-Recruitment
-python3 run.py
+python3 presence.py
 ```
 
-> Demo
-
-<img src="demo.gif" />
+### Demo
+![Demo](demo.gif)
 
