@@ -1,6 +1,7 @@
 import cv2
 import time
 import base64
+import os
 from conf.text import TextColor
 
 FILENAME = "presence.csv"
@@ -41,35 +42,41 @@ def extract_qrdata(data):
 	student_id = qrsp[0]
 	name = qrsp[1]
 	email = qrsp[2]
-	valid = qrsp[3] == "OPREC"
+	validation = qrsp[3]
+	valid_set = ["OPREC", "FOSTI"]
 	presence_date = time.strftime('%Y-%m-%d')
 	presence_time = time.strftime('%H:%M:%S')
 
-	if not valid:
+	if validation not in valid_set:
 		raise QRCodeInvalidError()
 
 	return student_id, name, email, presence_date, presence_time
 
 def create_file():
 	"""Create csv file if not exists"""
-	try:
-		with open(FILENAME, 'x'):
+	file_exists = os.path.exists(FILENAME)
+	if not file_exists:
+		with open(FILENAME, 'w') as f:
+			f.write("Student Id;Name;Email;Date;Time\n")
 			pass
-	except:
-		pass
 
 def already_presence(student_id):
 	"""Check if student already presence or not"""
 	presence_exist = False
 	create_file()
+	first_line = True
 	with open(FILENAME, "r") as f:
 		text = f.readline()
 		while text:
-			presence_data = text.split(';')
-			if student_id == presence_data[0]:
-				presence_exist = True
-				break
-			text = f.readline()
+			if text and first_line:
+				first_line = False
+				continue
+			else:
+				presence_data = text.split(';')
+				if student_id == presence_data[0]:
+					presence_exist = True
+					break
+				text = f.readline()
 	return presence_exist
 
 def append_presence(student_id, name, email, date, time):

@@ -1,5 +1,5 @@
-# QR Scanner Open Recruitment Presence
-QR Code Scanner for Fosti UMS Open Recruitment Presence
+# QR Scanner FOSTI Presence
+QR Code Scanner for Fosti UMS Presence
 
 ### Recommendation
 
